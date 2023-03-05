@@ -37,14 +37,14 @@ def main():
                     with open (file) as file:
                         n=int (file.readline())
                         parents = list(map(int, input().split()))
+                        max_augstums = compute_height(n, parents)
                 except Exception as h:
                     print("Error:", str(h))
                     return 
             else: 
                 print ("Error: invalid filename")
                 return
-            
-            max_augstums = compute_height(n, parents)
+
     print(max_augstums)
 
 # In Python, the default limit on recursion depth is rather low,
