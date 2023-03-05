@@ -36,7 +36,7 @@ def main():
         if 'a' not in filename:
             with open (file) as file:
                 n=int (file.readline())
-                parents = list(map(int, input().split()))
+                parents = list(map(int, file.readline().strip().split()))
                 max_augstums = compute_height(n, parents)
                 print(max_augstums)
         else: 
