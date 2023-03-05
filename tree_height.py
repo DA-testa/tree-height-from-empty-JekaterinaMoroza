@@ -1,27 +1,46 @@
-# python3
-
 import sys
 import threading
-import numpy
-
+#import numpy
 
 def compute_height(n, parents):
-    # Write this function
-    max_height = 0
-    # Your code here
-    return max_height
+    augstums= [0]*n
+    root= parents.index(-1)
+
+    def dfs(i) :
+        if augstums[i] != 0:
+            return augstums[i]
+        if parents[i] == -1:
+            augstums[i] = 1
+        else:
+            augstums[i] = 1 + dfs(parents[i])
+
+        return augstums[i]
+                
+    for i in range(n):
+        dfs(i)
+
+    return max(augstums)
 
 
 def main():
-    # implement input form keyboard and from files
-    
-    # let user input file name to use, don't allow file names with letter a
-    # account for github input inprecision
-    
-    # input number of elements
-    # input values in one variable, separate with space, split these values in an array
-    # call the function and output it's result
-    pass
+    text= input("I or F:")
+    if "I" in text or "i" in text:
+        n=int(input())
+        parents = list(map(int, input().split()))
+        max_augstums = compute_height(n, parents)
+        print(max_augstums)
+        
+    if "F" in text:
+        filename = input()
+        file='./test/'+ filename
+        if 'a' not in filename:
+            with open (file) as file:
+                n=int (file.readline())
+                parents = list(map(int, file.readline().strip().split()))
+                max_augstums = compute_height(n, parents)
+                print(max_augstums)
+        else: 
+            print ("Error: invalid filename")
 
 # In Python, the default limit on recursion depth is rather low,
 # so raise it here for this problem. Note that to take advantage
@@ -29,5 +48,4 @@ def main():
 sys.setrecursionlimit(10**7)  # max depth of recursion
 threading.stack_size(2**27)   # new thread will get stack of such size
 threading.Thread(target=main).start()
-main()
-# print(numpy.array([1,2,3]))
+#print(numpy.array([1,2,3]))
