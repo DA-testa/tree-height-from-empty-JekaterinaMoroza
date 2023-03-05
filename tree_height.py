@@ -1,10 +1,10 @@
-# python3
-
 import sys
 import threading
+#import numpy
 
 def compute_height(n, parents):
     augstums= [0]*n
+    root= parents.index(-1)
 
     def dfs(i) :
         if augstums[i] != 0:
@@ -24,28 +24,23 @@ def compute_height(n, parents):
 
 def main():
     text= input("I or F:")
-    if "I" in text:
+    if "I" in text or "i" in text:
         n=int(input())
         parents = list(map(int, input().split()))
         max_augstums = compute_height(n, parents)
+        print(max_augstums)
         
-        if "F" in text:
-            filename=input()
-            file='./test/'+ filename
-            if 'a' not in filename:
-                try:
-                    with open (file) as file:
-                        n=int (file.readline())
-                        parents = list(map(int, input().split()))
-                        max_augstums = compute_height(n, parents)
-                except Exception as h:
-                    print("Error:", str(h))
-                    return 
-            else: 
-                print ("Error: invalid filename")
-                return
-
-    print(max_augstums)
+    if "F" in text:
+        filename = input()
+        file='./test/'+ filename
+        if 'a' not in filename:
+            with open (file) as file:
+                n=int (file.readline())
+                parents = list(map(int, input().split()))
+                max_augstums = compute_height(n, parents)
+                print(max_augstums)
+        else: 
+            print ("Error: invalid filename")
 
 # In Python, the default limit on recursion depth is rather low,
 # so raise it here for this problem. Note that to take advantage
